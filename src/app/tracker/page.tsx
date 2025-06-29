@@ -52,7 +52,7 @@ const Tracker: React.FC = () => {
         <div className="flex justify-center items-center p-4">
           <Image
             src={`/assets/${image}`}
-            width={collapsed ? 50 : 126}
+            width={collapsed ? 50 : 110}
             height={collapsed ? 30 : 50}
             alt="Logo"
             style={{ filter: "drop-shadow(0 2px 4px rgba(28, 43, 74, 0.3))" }}
