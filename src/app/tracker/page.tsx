@@ -116,7 +116,7 @@ const Tracker: React.FC = () => {
           <div className="flex flex-col items-center mt-6">
             <Image
               src={`/assets/logo.svg`}
-              width={140}
+              width={110}
               height={70}
               alt="Logo"
               style={{ filter: "drop-shadow(0 2px 4px rgba(28, 43, 74, 0.3))" }}
