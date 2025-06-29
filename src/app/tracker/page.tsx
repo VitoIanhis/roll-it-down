@@ -9,6 +9,7 @@ import {
 import { Button, Layout, Menu, theme } from "antd";
 import Image from "next/image";
 import "./page.css";
+import EditableTable from "./components/EditableTable";
 
 const { Sider, Content } = Layout;
 
@@ -39,7 +40,7 @@ const Tracker: React.FC = () => {
   return (
     <Layout
       style={{ minHeight: "100vh", backgroundColor: "#1C2B4A" }}
-      className="gap-5 pt-5 pl-5 pb-5 rounded-xl pr-5"
+      className="gap-5 pt-5 pl-5 pb-5 pr-5"
     >
       <Sider
         trigger={null}
@@ -94,6 +95,10 @@ const Tracker: React.FC = () => {
             background: "#F5F5DC",
             borderRadius: borderRadiusLG,
             position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "80vh",
+            paddingTop: 0,
           }}
         >
           <div className="absolute top-6 left-6 z-10">
@@ -113,7 +118,7 @@ const Tracker: React.FC = () => {
               }}
             />
           </div>
-          <div className="flex flex-col items-center mt-6">
+          <div className="flex flex-col items-center mt-6 mb-8">
             <Image
               src={`/assets/logo.svg`}
               width={110}
@@ -128,8 +133,18 @@ const Tracker: React.FC = () => {
                 letterSpacing: "0.5px",
               }}
             >
-              De jogador pra jogador. Feito pra quem vive cada sessão.
+              De jogador para jogador. Feito pra quem vive cada sessão.
             </span>
+          </div>
+          <div
+            style={{
+              flex: 1,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <EditableTable />
           </div>
         </Content>
       </Layout>

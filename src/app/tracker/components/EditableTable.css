@@ -1,0 +1,81 @@
+/* EditableTable.css */
+
+.custom-table-colors .ant-table {
+  background: #1c2b4a !important;
+  border-radius: 8px;
+  border: 2px solid #f5f5dc;
+}
+
+.custom-table-colors .ant-table-thead > tr > th {
+  background: #1c2b4a !important;
+  color: #f5f5dc !important;
+  border-bottom: 2px solid #f5f5dc !important;
+  font-weight: bold;
+}
+
+.custom-table-colors .ant-table-tbody > tr > td {
+  background: #1c2b4a !important;
+  color: #f5f5dc !important;
+  border-bottom: 1px solid #f5f5dc !important;
+}
+
+.custom-table-colors .ant-table-tbody > tr > td .ant-btn,
+.custom-table-colors .ant-table-tbody > tr > td .anticon {
+  color: #f5f5dc !important;
+}
+
+.custom-table-colors .ant-table-bordered .ant-table-container {
+  border: 2px solid #f5f5dc !important;
+  border-radius: 8px;
+}
+
+.custom-add-btn {
+  background: #f5f5dc !important;
+  transition: background 0.2s;
+}
+.custom-add-btn:hover,
+.custom-add-btn:focus {
+  background: #1c2b4a !important;
+}
+.custom-add-btn:hover .anticon,
+.custom-add-btn:focus .anticon {
+  color: #f5f5dc !important;
+}
+
+/* Inputs em modo de edição: fundo azul, texto bege */
+.custom-table-colors .ant-input,
+.custom-table-colors .ant-input-number,
+.custom-table-colors .ant-input-number-input {
+  background: #1c2b4a !important;
+  color: #f5f5dc !important;
+}
+
+.custom-table-colors .ant-input::placeholder,
+.custom-table-colors .ant-input-number-input::placeholder {
+  color: #f5f5dc !important;
+  opacity: 1;
+}
+
+.popconfirm-ok-btn {
+  color: #1c2b4a !important;
+  background: #f5f5dc !important;
+  border: 2px solid #1c2b4a !important;
+  font-weight: bold;
+}
+.popconfirm-ok-btn:hover,
+.popconfirm-ok-btn:focus {
+  background: #1c2b4a !important;
+  color: #f5f5dc !important;
+}
+
+.popconfirm-cancel-btn {
+  background: #1c2b4a !important;
+  color: #f5f5dc !important;
+  border: 2px solid #1c2b4a !important;
+  font-weight: bold;
+}
+.popconfirm-cancel-btn:hover,
+.popconfirm-cancel-btn:focus {
+  background: #f5f5dc !important;
+  color: #1c2b4a !important;
+}
