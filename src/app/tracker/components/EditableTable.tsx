@@ -308,6 +308,13 @@ const EditableTable: React.FC = () => {
     setDataSource(initialValues);
   };
 
+  const handleOrder = () => {
+    const orderedData = [...dataSource].sort(
+      (a, b) => (b.initiative ?? -Infinity) - (a.initiative ?? -Infinity)
+    );
+    setDataSource(orderedData);
+  };
+
   const components = {
     body: {
       row: EditableRow,
@@ -403,6 +410,7 @@ const EditableTable: React.FC = () => {
               ghost
               icon={<OrderedListOutlined />}
               style={{ color: "#1c2b4a", borderColor: "#1c2b4a" }}
+              onClick={handleOrder}
             ></Button>
           </Tooltip>
           <Button color="danger" variant="outlined" size="large" ghost>
