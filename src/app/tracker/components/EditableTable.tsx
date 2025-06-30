@@ -384,6 +384,7 @@ const EditableTable: React.FC = () => {
           wrap
           style={{
             marginTop: 25,
+            marginBottom: 10,
             display: "flex",
             justifyContent: "start",
           }}
