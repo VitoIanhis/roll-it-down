@@ -387,7 +387,12 @@ const EditableTable: React.FC = () => {
             justifyContent: "start",
           }}
         >
-          <Button type="primary" size="large" ghost color="green">
+          <Button
+            type="primary"
+            size="large"
+            ghost
+            style={{ color: "#1B5E20", borderColor: "#1B5E20" }}
+          >
             Próximo
           </Button>
           <Button
