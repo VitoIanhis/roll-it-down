@@ -263,18 +263,20 @@ const EditableTable: React.FC = () => {
       render: (_: unknown, record: DataType) =>
         dataSource.length >= 1 ? (
           <div className="flex justify-center">
-            <Popconfirm
-              icon={<WarningOutlined style={{ color: "#1C2B4A" }} />}
-              title="Deseja realmente excluir?"
-              okText="Sim"
-              cancelText="Não"
-              color="#F5F5DC"
-              onConfirm={() => handleDelete(record.key)}
-              okButtonProps={{ className: "popconfirm-ok-btn" }}
-              cancelButtonProps={{ className: "popconfirm-cancel-btn" }}
-            >
-              <DeleteOutlined style={{ fontSize: 18 }} />
-            </Popconfirm>
+            <Tooltip title="Excluir linha">
+              <Popconfirm
+                icon={<WarningOutlined style={{ color: "#1C2B4A" }} />}
+                title="Deseja realmente excluir?"
+                okText="Sim"
+                cancelText="Não"
+                color="#F5F5DC"
+                onConfirm={() => handleDelete(record.key)}
+                okButtonProps={{ className: "popconfirm-ok-btn" }}
+                cancelButtonProps={{ className: "popconfirm-cancel-btn" }}
+              >
+                <DeleteOutlined style={{ fontSize: 18 }} />
+              </Popconfirm>
+            </Tooltip>
           </div>
         ) : null,
     },
