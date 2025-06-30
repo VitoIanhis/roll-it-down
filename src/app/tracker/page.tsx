@@ -21,7 +21,7 @@ type MenuItem = {
 };
 
 const Tracker: React.FC = () => {
-  const [collapsed, setCollapsed] = useState(true);
+  const [collapsed, setCollapsed] = useState(false);
   const [selectedKey, setSelectedKey] = useState("1");
   const {
     token: { borderRadiusLG },
