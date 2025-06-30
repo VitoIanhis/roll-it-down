@@ -109,29 +109,28 @@ const EditableCell: React.FC<EditableCellProps> = ({
                 placeholder={`${title}`}
                 controls={false}
               />
-              <Button
-                type="text"
-                size="small"
-                style={{
-                  marginLeft: 8,
-                  color: "#F5F5DC",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => {
-                  const random = Math.floor(Math.random() * 20) + 1;
-                  handleSave({ ...record, [dataIndex]: random });
-                  form.setFieldsValue({ [dataIndex]: random });
-                  setEditing(false);
-                }}
-                tabIndex={0}
-                aria-label="Gerar iniciativa aleatória"
-              >
-                <Tooltip title="Iniciativa aleatória">
-                  <FaDiceD20 />
-                </Tooltip>
-              </Button>
+              <Tooltip title="Iniciativa aleatória">
+                <Button
+                  type="text"
+                  size="small"
+                  style={{
+                    marginLeft: 8,
+                    color: "#F5F5DC",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                  onMouseDown={(e) => e.preventDefault()}
+                  icon={<FaDiceD20 />}
+                  onClick={() => {
+                    const random = Math.floor(Math.random() * 20) + 1;
+                    handleSave({ ...record, [dataIndex]: random });
+                    form.setFieldsValue({ [dataIndex]: random });
+                    setEditing(false);
+                  }}
+                  tabIndex={0}
+                  aria-label="Gerar iniciativa aleatória"
+                ></Button>
+              </Tooltip>
             </div>
           ) : (
             <InputNumber
@@ -338,7 +337,7 @@ const EditableTable: React.FC = () => {
       <div
         style={{
           width: "100%",
-          maxWidth: 1500,
+          maxWidth: 1400,
           margin: "0 auto",
           textAlign: "center",
         }}
@@ -397,15 +396,14 @@ const EditableTable: React.FC = () => {
           >
             Próximo
           </Button>
-          <Button
-            size="large"
-            ghost
-            style={{ color: "#1c2b4a", borderColor: "#1c2b4a" }}
-          >
-            <Tooltip title="Organizar">
-              <OrderedListOutlined />
-            </Tooltip>
-          </Button>
+          <Tooltip title="Organizar">
+            <Button
+              size="large"
+              ghost
+              icon={<OrderedListOutlined />}
+              style={{ color: "#1c2b4a", borderColor: "#1c2b4a" }}
+            ></Button>
+          </Tooltip>
           <Button color="danger" variant="outlined" size="large" ghost>
             <Popconfirm
               icon={<WarningOutlined style={{ color: "#1C2B4A" }} />}
