@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Button,
+  Flex,
   Form,
   Input,
   InputNumber,
@@ -12,7 +13,9 @@ import { FaDiceD20 } from "react-icons/fa";
 import type { FormInstance } from "antd/es/form";
 import type { TableProps } from "antd/es/table";
 import {
+  ClearOutlined,
   DeleteOutlined,
+  OrderedListOutlined,
   PlusCircleOutlined,
   WarningOutlined,
 } from "@ant-design/icons";
@@ -176,7 +179,7 @@ interface DataType {
 type ColumnTypes = Exclude<TableProps<DataType>["columns"], undefined>;
 
 const EditableTable: React.FC = () => {
-  const [dataSource, setDataSource] = useState<DataType[]>([
+  const initialValues = [
     {
       key: "1",
       initiative: null,
@@ -212,7 +215,8 @@ const EditableTable: React.FC = () => {
       healthy_points: null,
       armor_class: null,
     },
-  ]);
+  ];
+  const [dataSource, setDataSource] = useState<DataType[]>(initialValues);
   const [count, setCount] = useState(6);
 
   const handleDelete = (key: React.Key) => {
@@ -299,6 +303,10 @@ const EditableTable: React.FC = () => {
     setDataSource(newData);
   };
 
+  const handleClear = () => {
+    setDataSource(initialValues);
+  };
+
   const components = {
     body: {
       row: EditableRow,
@@ -370,6 +378,44 @@ const EditableTable: React.FC = () => {
           summary={() => null}
           className="custom-table-colors"
         />
+        <Flex
+          gap="small"
+          wrap
+          style={{
+            marginTop: 25,
+            display: "flex",
+            justifyContent: "start",
+          }}
+        >
+          <Button type="primary" size="large" ghost color="green">
+            Próximo
+          </Button>
+          <Button
+            size="large"
+            ghost
+            style={{ color: "#1c2b4a", borderColor: "#1c2b4a" }}
+          >
+            <Tooltip title="Organizar">
+              <OrderedListOutlined />
+            </Tooltip>
+          </Button>
+          <Button color="danger" variant="outlined" size="large" ghost>
+            <Popconfirm
+              icon={<WarningOutlined style={{ color: "#1C2B4A" }} />}
+              title="Deseja realmente limpar tudo?"
+              okText="Sim"
+              cancelText="Não"
+              color="#F5F5DC"
+              onConfirm={handleClear}
+              okButtonProps={{ className: "popconfirm-ok-btn" }}
+              cancelButtonProps={{ className: "popconfirm-cancel-btn" }}
+            >
+              <Tooltip title="Limpar">
+                <ClearOutlined />
+              </Tooltip>
+            </Popconfirm>
+          </Button>
+        </Flex>
       </div>
     </Form>
   );
