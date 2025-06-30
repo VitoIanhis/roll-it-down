@@ -17,6 +17,7 @@
   background: #1c2b4a !important;
   color: #f5f5dc !important;
   border-bottom: 1px solid #f5f5dc !important;
+  font-weight: bold;
 }
 
 .custom-table-colors .ant-table-tbody > tr > td .ant-btn,
