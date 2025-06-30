@@ -52,7 +52,9 @@ interface EditableCellProps {
   children: React.ReactNode;
 }
 
-const EditableCell: React.FC<EditableCellProps> = ({
+const EditableCell: React.FC<
+  EditableCellProps & { rowIndex: number; selectedRowIndex: number }
+> = ({
   editable,
   inputType,
   dataIndex,
@@ -60,6 +62,8 @@ const EditableCell: React.FC<EditableCellProps> = ({
   record,
   handleSave,
   children,
+  rowIndex,
+  selectedRowIndex,
   ...restProps
 }) => {
   const [editing, setEditing] = useState(false);
@@ -115,12 +119,17 @@ const EditableCell: React.FC<EditableCellProps> = ({
                   size="small"
                   style={{
                     marginLeft: 8,
-                    color: "#F5F5DC",
                     display: "flex",
                     alignItems: "center",
                   }}
                   onMouseDown={(e) => e.preventDefault()}
-                  icon={<FaDiceD20 />}
+                  icon={
+                    <FaDiceD20
+                      color={
+                        rowIndex === selectedRowIndex ? "#1C2B4A" : "#F5F5DC"
+                      }
+                    />
+                  }
                   onClick={() => {
                     const random = Math.floor(Math.random() * 20) + 1;
                     handleSave({ ...record, [dataIndex]: random });
@@ -217,6 +226,11 @@ const EditableTable: React.FC = () => {
   ];
   const [dataSource, setDataSource] = useState<DataType[]>(initialValues);
   const [count, setCount] = useState(6);
+  const [selectedRowIndex, setSelectedRowIndex] = useState(0);
+
+  useEffect(() => {
+    setSelectedRowIndex(0);
+  }, [dataSource.length]);
 
   const handleDelete = (key: React.Key) => {
     const newData = dataSource.filter((item) => item.key !== key);
@@ -259,7 +273,7 @@ const EditableTable: React.FC = () => {
     {
       title: "Ações",
       dataIndex: "actions",
-      render: (_: unknown, record: DataType) =>
+      render: (_: unknown, record: DataType, rowIndex: number) =>
         dataSource.length >= 1 ? (
           <div className="flex justify-center">
             <Tooltip title="Excluir linha">
@@ -268,12 +282,16 @@ const EditableTable: React.FC = () => {
                 title="Deseja realmente excluir?"
                 okText="Sim"
                 cancelText="Não"
-                color="#F5F5DC"
                 onConfirm={() => handleDelete(record.key)}
                 okButtonProps={{ className: "popconfirm-ok-btn" }}
                 cancelButtonProps={{ className: "popconfirm-cancel-btn" }}
               >
-                <DeleteOutlined style={{ fontSize: 18 }} />
+                <DeleteOutlined
+                  style={{
+                    fontSize: 18,
+                    color: rowIndex === selectedRowIndex ? "#1C2B4A" : "red",
+                  }}
+                />
               </Popconfirm>
             </Tooltip>
           </div>
@@ -306,6 +324,7 @@ const EditableTable: React.FC = () => {
 
   const handleClear = () => {
     setDataSource(initialValues);
+    setSelectedRowIndex(0);
   };
 
   const handleOrder = () => {
@@ -328,13 +347,15 @@ const EditableTable: React.FC = () => {
     }
     return {
       ...col,
-      onCell: (record: DataType) => ({
+      onCell: (record: DataType, rowIndex: number) => ({
         record,
         editable: col.editable,
         dataIndex: col.dataIndex,
         title: col.title,
         inputType: col.inputType || "text",
         handleSave,
+        rowIndex,
+        selectedRowIndex,
       }),
     };
   });
@@ -373,7 +394,11 @@ const EditableTable: React.FC = () => {
         </div>
         <Table<DataType>
           components={components}
-          rowClassName={() => "editable-row"}
+          rowClassName={(_, index) =>
+            index === selectedRowIndex
+              ? "editable-row selected-row"
+              : "editable-row"
+          }
           bordered
           dataSource={dataSource}
           columns={columns as ColumnTypes}
@@ -401,6 +426,11 @@ const EditableTable: React.FC = () => {
             size="large"
             ghost
             style={{ color: "#1B5E20", borderColor: "#1B5E20" }}
+            onClick={() => {
+              setSelectedRowIndex((prev) =>
+                dataSource.length === 0 ? 0 : (prev + 1) % dataSource.length
+              );
+            }}
           >
             Próximo
           </Button>

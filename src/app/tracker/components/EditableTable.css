@@ -42,7 +42,6 @@
   color: #f5f5dc !important;
 }
 
-/* Inputs em modo de edição: fundo azul, texto bege */
 .custom-table-colors .ant-input,
 .custom-table-colors .ant-input-number,
 .custom-table-colors .ant-input-number-input {
@@ -77,5 +76,15 @@
 .popconfirm-cancel-btn:hover,
 .popconfirm-cancel-btn:focus {
   background: #f5f5dc !important;
+  color: #1c2b4a !important;
+}
+
+.custom-table-colors .ant-table-tbody > tr.selected-row > td {
+  background: #f5f5dc !important;
+  color: #1c2b4a !important;
+  border: 2px solid #1c2b4a !important;
+}
+.custom-table-colors .ant-table-tbody > tr.selected-row > td .ant-btn,
+.custom-table-colors .ant-table-tbody > tr.selected-row > td .anticon {
   color: #1c2b4a !important;
 }
