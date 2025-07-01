@@ -7,6 +7,7 @@ import {
   InputNumber,
   Popconfirm,
   Table,
+  Tag,
   Tooltip,
 } from "antd";
 import { FaDiceD20 } from "react-icons/fa";
@@ -17,6 +18,7 @@ import {
   DeleteOutlined,
   OrderedListOutlined,
   PlusCircleOutlined,
+  SyncOutlined,
   WarningOutlined,
 } from "@ant-design/icons";
 import "./EditableTable.css";
@@ -50,6 +52,7 @@ interface EditableCellProps {
   record: Item;
   handleSave: (record: Item) => void;
   children: React.ReactNode;
+  placeholder?: string;
 }
 
 const EditableCell: React.FC<
@@ -64,6 +67,7 @@ const EditableCell: React.FC<
   children,
   rowIndex,
   selectedRowIndex,
+  placeholder,
   ...restProps
 }) => {
   const [editing, setEditing] = useState(false);
@@ -99,7 +103,12 @@ const EditableCell: React.FC<
       <Form.Item
         style={{ margin: 0 }}
         name={dataIndex}
-        rules={[{ required: false, message: `${title} é obrigatório.` }]}
+        rules={[
+          {
+            required: false,
+            message: `${placeholder || title} é obrigatório.`,
+          },
+        ]}
       >
         {inputType === "number" ? (
           dataIndex === "initiative" ? (
@@ -110,7 +119,9 @@ const EditableCell: React.FC<
                 onBlur={save}
                 style={{ width: "100%" }}
                 variant="borderless"
-                placeholder={`${title}`}
+                placeholder={
+                  placeholder || (typeof title === "string" ? title : undefined)
+                }
                 controls={false}
               />
               <Tooltip title="Iniciativa aleatória">
@@ -148,7 +159,9 @@ const EditableCell: React.FC<
               onBlur={save}
               style={{ width: "100%" }}
               variant="borderless"
-              placeholder={`${title}`}
+              placeholder={
+                placeholder || (typeof title === "string" ? title : undefined)
+              }
               controls={false}
             />
           )
@@ -158,7 +171,9 @@ const EditableCell: React.FC<
             onPressEnter={save}
             onBlur={save}
             variant="borderless"
-            placeholder={`${title}`}
+            placeholder={
+              placeholder || (typeof title === "string" ? title : undefined)
+            }
           />
         )}
       </Form.Item>
@@ -227,6 +242,8 @@ const EditableTable: React.FC = () => {
   const [dataSource, setDataSource] = useState<DataType[]>(initialValues);
   const [count, setCount] = useState(6);
   const [selectedRowIndex, setSelectedRowIndex] = useState(0);
+  const [roundCount, setRoundCount] = useState(1);
+  const [resetAnim, setResetAnim] = useState(false);
 
   useEffect(() => {
     setSelectedRowIndex(0);
@@ -241,37 +258,42 @@ const EditableTable: React.FC = () => {
     editable?: boolean;
     dataIndex: string;
     inputType?: "number" | "text";
+    placeholder?: string;
   })[] = [
     {
-      title: "Iniciativa",
+      title: <span className="logo-font">Iniciativa</span>,
       dataIndex: "initiative",
       width: "20%",
       editable: true,
       inputType: "number",
+      placeholder: "Iniciativa",
     },
     {
-      title: "Nome",
+      title: <span className="logo-font">Nome</span>,
       dataIndex: "name",
       editable: true,
       width: "50%",
       inputType: "text",
+      placeholder: "Nome",
     },
     {
-      title: "HP",
+      title: <span className="logo-font">HP</span>,
       dataIndex: "healthy_points",
       editable: true,
       width: "15%",
       inputType: "number",
+      placeholder: "HP",
     },
     {
-      title: "AC",
+      title: <span className="logo-font">AC</span>,
       dataIndex: "armor_class",
       editable: true,
       width: "15%",
       inputType: "number",
+      placeholder: "AC",
     },
     {
-      title: "Ações",
+      title: <span className="logo-font">Ações</span>,
       dataIndex: "actions",
       render: (_: unknown, record: DataType, rowIndex: number) =>
         dataSource.length >= 1 ? (
@@ -325,6 +347,7 @@ const EditableTable: React.FC = () => {
   const handleClear = () => {
     setDataSource(initialValues);
     setSelectedRowIndex(0);
+    setRoundCount(1);
   };
 
   const handleOrder = () => {
@@ -356,6 +379,7 @@ const EditableTable: React.FC = () => {
         handleSave,
         rowIndex,
         selectedRowIndex,
+        placeholder: col.placeholder,
       }),
     };
   });
@@ -418,47 +442,94 @@ const EditableTable: React.FC = () => {
             marginTop: 25,
             marginBottom: 10,
             display: "flex",
-            justifyContent: "start",
+            justifyContent: "space-between",
           }}
         >
-          <Button
-            type="primary"
-            size="large"
-            ghost
-            style={{ color: "#1B5E20", borderColor: "#1B5E20" }}
-            onClick={() => {
-              setSelectedRowIndex((prev) =>
-                dataSource.length === 0 ? 0 : (prev + 1) % dataSource.length
-              );
-            }}
-          >
-            Próximo
-          </Button>
-          <Tooltip title="Organizar">
+          <div className="flex justify-between gap-2">
             <Button
+              className="logo-font"
+              type="primary"
               size="large"
               ghost
-              icon={<OrderedListOutlined />}
-              style={{ color: "#1c2b4a", borderColor: "#1c2b4a" }}
-              onClick={handleOrder}
-            ></Button>
-          </Tooltip>
-          <Button color="danger" variant="outlined" size="large" ghost>
-            <Popconfirm
-              icon={<WarningOutlined style={{ color: "#1C2B4A" }} />}
-              title="Deseja realmente limpar tudo?"
-              okText="Sim"
-              cancelText="Não"
-              color="#F5F5DC"
-              onConfirm={handleClear}
-              okButtonProps={{ className: "popconfirm-ok-btn" }}
-              cancelButtonProps={{ className: "popconfirm-cancel-btn" }}
+              style={{ color: "#1B5E20", borderColor: "#1B5E20" }}
+              onClick={() => {
+                if (dataSource.length === 0) {
+                  setSelectedRowIndex(0);
+                  return;
+                }
+                const nextIndex = (selectedRowIndex + 1) % dataSource.length;
+                if (nextIndex === 0) {
+                  setRoundCount((rc) => rc + 1);
+                }
+                setSelectedRowIndex(nextIndex);
+              }}
             >
-              <Tooltip title="Limpar">
-                <ClearOutlined />
-              </Tooltip>
-            </Popconfirm>
-          </Button>
+              Próximo
+            </Button>
+            <Tooltip title="Organizar">
+              <Button
+                className="logo-font"
+                size="large"
+                ghost
+                icon={<OrderedListOutlined />}
+                style={{ color: "#1c2b4a", borderColor: "#1c2b4a" }}
+                onClick={handleOrder}
+              ></Button>
+            </Tooltip>
+            <Button
+              color="danger"
+              variant="outlined"
+              size="large"
+              ghost
+              className="logo-font"
+            >
+              <Popconfirm
+                icon={<WarningOutlined style={{ color: "#1C2B4A" }} />}
+                title="Deseja realmente limpar tudo?"
+                okText="Sim"
+                cancelText="Não"
+                color="#F5F5DC"
+                onConfirm={handleClear}
+                okButtonProps={{ className: "popconfirm-ok-btn" }}
+                cancelButtonProps={{ className: "popconfirm-cancel-btn" }}
+              >
+                <Tooltip title="Limpar">
+                  <ClearOutlined />
+                </Tooltip>
+              </Popconfirm>
+            </Button>
+          </div>
+          <Tag
+            className={`logo-font${resetAnim ? " round-reset-anim" : ""}`}
+            style={{
+              marginBottom: 10,
+              height: 40,
+              width: 135,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              fontSize: 20,
+              backgroundColor: "#1C2B4A",
+              color: "#F5F5DC",
+              borderColor: resetAnim ? "#1B5E20" : "#1C2B4A",
+              transition: "box-shadow 0.3s, border-color 0.3s",
+              boxShadow: resetAnim ? "0 0 10px 2px #1C2B4A" : "none",
+              borderRadius: 10,
+            }}
+          >
+            Rodada {roundCount}
+            <Tooltip title="Reiniciar rodadas">
+              <SyncOutlined
+                spin
+                style={{ fontSize: 16 }}
+                onClick={() => {
+                  setRoundCount(1);
+                  setResetAnim(true);
+                  setTimeout(() => setResetAnim(false), 500);
+                }}
+              />
+            </Tooltip>
+          </Tag>
         </Flex>
       </div>
     </Form>

@@ -16,7 +16,7 @@ const { Sider, Content } = Layout;
 type MenuItem = {
   key: string;
   icon: React.ReactNode;
-  label: string;
+  label: React.ReactNode;
   children?: { key: string; label: string }[];
 };
 
@@ -33,7 +33,7 @@ const Tracker: React.FC = () => {
     {
       key: "1",
       icon: <FaDiceD20 />,
-      label: "Combat Tracker",
+      label: <span className="logo-font">Combat Tracker</span>,
     },
   ];
 
