@@ -1,103 +1,267 @@
+"use client";
+import React from "react";
+import { Card, Button, Typography, Row, Col, Spin } from "antd";
 import Image from "next/image";
+import styles from "./page.module.css";
+import { LuSwords } from "react-icons/lu";
+import { FaUserSecret, FaDiceD20, FaBookOpen } from "react-icons/fa";
+import { GiOpenTreasureChest, GiTreasureMap } from "react-icons/gi";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { motion } from "framer-motion";
+
+const { Title, Paragraph } = Typography;
+
+const tools = [
+  {
+    key: "combat-tracker",
+    title: "Oráculo de Combate",
+    icon: <LuSwords size={48} color="#f5f5dc" style={{ marginBottom: 8 }} />,
+    description:
+      "Domine batalhas épicas com organização e agilidade. Controle a iniciativa, acompanhe status e mantenha o fluxo do combate como um verdadeiro mestre.",
+    button: {
+      text: "Acessar",
+      href: "/tracker",
+      disabled: false,
+    },
+  },
+  {
+    key: "npc-generator",
+    title: "Forjador de Destinos",
+    icon: (
+      <FaUserSecret size={44} color="#f5f5dc" style={{ marginBottom: 8 }} />
+    ),
+    description:
+      "Crie personagens únicos em segundos. Personalidades, motivações e segredos prontos para surpreender seus jogadores.",
+    button: {
+      text: "Em construção",
+      href: "#",
+      disabled: true,
+    },
+  },
+  {
+    key: "dice-roller",
+    title: "Dados do Destino",
+    icon: <FaDiceD20 size={44} color="#f5f5dc" style={{ marginBottom: 8 }} />,
+    description:
+      "Role qualquer combinação de dados com efeitos visuais místicos. Sorte ou destino? Descubra com um clique.",
+    button: {
+      text: "Em construção",
+      href: "#",
+      disabled: true,
+    },
+  },
+  {
+    key: "campaign-manager",
+    title: "Grimório de Campanhas",
+    icon: <FaBookOpen size={44} color="#f5f5dc" style={{ marginBottom: 8 }} />,
+    description:
+      "Organize sessões, registre lendas e mantenha o grimório da sua campanha sempre à mão.",
+    button: {
+      text: "Em construção",
+      href: "#",
+      disabled: true,
+    },
+  },
+  {
+    key: "map-generator",
+    title: "Gerador de Mapas",
+    icon: (
+      <GiTreasureMap size={44} color="#f5f5dc" style={{ marginBottom: 8 }} />
+    ),
+    description:
+      "Crie mapas táticos e cenários de aventura em segundos. Personalize terrenos, adicione marcadores e surpreenda seu grupo com ambientes únicos.",
+    button: {
+      text: "Em construção",
+      href: "#",
+      disabled: true,
+    },
+  },
+  {
+    key: "loot-randomizer",
+    title: "Tesouros do Inesperado",
+    icon: (
+      <GiOpenTreasureChest
+        size={44}
+        color="#f5f5dc"
+        style={{ marginBottom: 8 }}
+      />
+    ),
+    description:
+      "Gere recompensas, itens mágicos e tesouros lendários para suas sessões. Surpreenda os jogadores com prêmios inesperados a cada aventura.",
+    button: {
+      text: "Em construção",
+      href: "#",
+      disabled: true,
+    },
+  },
+];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [loading, setLoading] = React.useState(true);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  React.useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 600);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          zIndex: 9999,
+          background: "rgba(28, 43, 74, 0.12)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
+  }
+
+  const settings = {
+    centerMode: true,
+    centerPadding: "188px",
+    slidesToShow: 1,
+    infinite: true,
+    dots: false,
+    arrows: false,
+    draggable: true,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          centerPadding: "6vw",
+        },
+      },
+    ],
+  };
+  return (
+    <>
+      <div className={styles.landingBg}>
+        <div className={styles.heroSection}>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className={styles.logoWrapper}
           >
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src="/assets/logo.svg"
+              alt="Roll It Down Logo"
+              width={180}
+              height={180}
+              priority
+              className={styles.logo}
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+            className={styles.heroIntro}
           >
-            Read our docs
-          </a>
+            Bem-vindo ao{" "}
+            <b>
+              <i>grimório de ferramentas místicas</i>
+            </b>{" "}
+            para RPG! Aqui, mestres e aventureiros encontram{" "}
+            <b>
+              <i>itens mágicos forjados</i>
+            </b>{" "}
+            para facilitar campanhas, acelerar batalhas e dar vida a mundos
+            fantásticos. Desvende recursos épicos, invoque NPCs, role dados do
+            destino e mantenha o controle absoluto da sua mesa. O apoio
+            essencial para jornadas lendárias está a um{" "}
+            <b>
+              <i>clique</i>
+            </b>
+            !
+          </motion.p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.45 }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+          <Row justify="center" style={{ marginTop: -35, marginBottom: 40 }}>
+            <Col xs={24} sm={22} md={20} lg={16} xl={12}>
+              <div className={styles.carouselWrapper}>
+                <Slider {...settings} className={styles.carousel}>
+                  {tools.map((tool) => (
+                    <div key={tool.key} className={styles.carouselItem}>
+                      <Card
+                        bordered={false}
+                        className={styles.toolCard}
+                        bodyStyle={{
+                          minHeight: 140,
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          padding: 24,
+                        }}
+                      >
+                        <Title
+                          level={4}
+                          className={styles.cardTitle}
+                          style={{ textAlign: "center", marginBottom: 0 }}
+                        >
+                          {tool.title}
+                        </Title>
+                        <div
+                          style={{
+                            margin: "16px 0 8px 0",
+                            display: "flex",
+                            justifyContent: "center",
+                            width: "100%",
+                          }}
+                        >
+                          {tool.icon}
+                        </div>
+                        <Paragraph
+                          className={styles.cardDesc}
+                          style={{ textAlign: "center", marginBottom: 24 }}
+                        >
+                          {tool.description}
+                        </Paragraph>
+                        <Button
+                          type="primary"
+                          href={tool.button.href}
+                          disabled={tool.button.disabled}
+                          className={styles.cardButton}
+                          size="large"
+                          style={{
+                            display: "flex",
+                            margin: "0 auto",
+                            alignItems: "center",
+                          }}
+                        >
+                          {tool.button.text}
+                        </Button>
+                      </Card>
+                    </div>
+                  ))}
+                </Slider>
+              </div>
+            </Col>
+          </Row>
+        </motion.div>
+      </div>
+      <footer className={styles.footer}>
+        <span>
+          © {new Date().getFullYear()} Roll It Down. Feito por jogadores para
+          jogadores.
+        </span>
       </footer>
-    </div>
+    </>
   );
 }

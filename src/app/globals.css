@@ -1,31 +1,6 @@
 @import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 .logo-font {
   font-family: "Bebas Neue", sans-serif;
   letter-spacing: 1px;
@@ -48,4 +23,44 @@ body {
     box-shadow: 0 0 0 0 #1c2b4a;
     border-color: #1c2b4a;
   }
+}
+
+.homepage-main {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--background);
+  color: var(--foreground);
+  padding: 2rem;
+}
+
+.homepage-content {
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+:root {
+  --background: #f5f5dc;
+  --foreground: #1c2b4a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #f5f5dc;
+    --foreground: #1c2b4a;
+  }
+}
+
+body {
+  background: #f5f5dc;
 }

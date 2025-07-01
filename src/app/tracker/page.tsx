@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
-import { FaDiceD20 } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { LuSwords } from "react-icons/lu";
 import {
   TbLayoutSidebarRightCollapse,
   TbLayoutSidebarLeftCollapse,
 } from "react-icons/tb";
 
-import { Button, Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu, theme, Spin } from "antd";
 import Image from "next/image";
 import "./page.css";
 import EditableTable from "./components/EditableTable";
@@ -26,16 +26,43 @@ const Tracker: React.FC = () => {
   const {
     token: { borderRadiusLG },
   } = theme.useToken();
+  const [loading, setLoading] = useState(true);
 
   const image = collapsed ? "icon.svg" : "logo.svg";
 
   const menuItems: MenuItem[] = [
     {
       key: "1",
-      icon: <FaDiceD20 />,
-      label: <span className="logo-font">Combat Tracker</span>,
+      icon: <LuSwords />,
+      label: <span className="logo-font">Oráculo de Combate</span>,
     },
   ];
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setLoading(false), 600);
+    return () => clearTimeout(timeout);
+  }, []);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100vw",
+          height: "100vh",
+          zIndex: 9999,
+          background: "rgba(28, 43, 74, 0.12)",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <Layout

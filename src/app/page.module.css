@@ -1,0 +1,200 @@
+.landingBg {
+  background: #f5f5dc;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.heroSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0px;
+  padding-bottom: 56px;
+  min-height: 60vh;
+}
+
+.logoWrapper {
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInUp 0.7s ease-out;
+}
+
+.logo {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+}
+
+.heroTitle {
+  color: #1c2b4a;
+  font-size: 2.75rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 0 2px 8px rgba(28, 43, 74, 0.1);
+  letter-spacing: 1px;
+  animation: fadeInUp 0.8s 0.15s ease-out;
+}
+
+.heroIntro {
+  color: #2f3e5e;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 0;
+  font-family: inherit;
+  animation: fadeInUp 0.8s 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .heroTitle {
+    font-size: 2rem;
+  }
+  .logo {
+    width: 120px;
+    height: 120px;
+  }
+  .heroSection {
+    padding-top: 0px;
+    padding-bottom: 32px;
+  }
+  .heroIntro {
+    font-size: 1rem;
+    max-width: 95vw;
+  }
+}
+
+.carouselWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.carousel :global(.slick-list) {
+  overflow: visible !important;
+}
+
+.carousel :global(.slick-slide) {
+  opacity: 0.5;
+  transform: scale(0.92);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0 8px;
+  cursor: grab;
+}
+
+.carousel :global(.slick-slide:active) {
+  cursor: grabbing;
+}
+
+.carousel :global(.slick-center) {
+  opacity: 1;
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+.carouselItem {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  height: 100%;
+}
+
+.toolCard {
+  width: 320px;
+  max-width: 90vw;
+  min-height: 340px;
+  height: 340px;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px 0 rgba(28, 43, 74, 0.08);
+  border: 1.5px solid #1c2b4a22;
+  background: #1c2b4a;
+  color: #f5f5dc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cardDesc {
+  color: #f5f5dc;
+  font-size: 1.08rem;
+  font-family: "Merriweather", serif;
+  margin-bottom: 2.5em;
+  text-align: center;
+  min-height: 90px;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardButton {
+  background: #f5f5dc !important;
+  border-color: #f5f5dc !important;
+  color: #1c2b4a !important;
+  font-weight: 600;
+  border-radius: 8px;
+  max-width: 90%;
+  width: auto;
+  margin: 1em auto 0 auto;
+  display: block;
+  height: 44px;
+  padding: 0 24px;
+  font-size: 1.08rem;
+}
+
+.cardButton:disabled,
+.cardButton[disabled] {
+  background: #bfc8dd !important;
+  border-color: #bfc8dd !important;
+  color: #fff !important;
+  cursor: not-allowed;
+}
+
+.cardTitle {
+  color: #f5f5dc !important;
+  font-family: "Cinzel", serif;
+  text-align: center;
+  margin-bottom: 0.2em;
+  font-size: 1.35rem !important;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.carouselWrapper,
+.carousel,
+.carousel * {
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+}
+
+.footer {
+  width: 100%;
+  background: #1c2b4a;
+  color: #f5f5dc;
+  text-align: center;
+  padding: 18px 0 12px 0;
+  font-size: 1rem;
+  font-family: "Merriweather", serif;
+  letter-spacing: 0.5px;
+  margin-top: 0;
+}
