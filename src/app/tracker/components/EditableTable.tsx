@@ -25,7 +25,7 @@ import "./EditableTable.css";
 
 const EditableContext = React.createContext<FormInstance | null>(null);
 
-interface Item {
+interface TableRow {
   key: string;
   initiative: number | null;
   name: string;
@@ -46,11 +46,11 @@ const EditableRow: React.FC = (props) => {
 
 interface EditableCellProps {
   editable: boolean;
-  dataIndex: keyof Item;
+  dataIndex: keyof TableRow;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: Item;
-  handleSave: (record: Item) => void;
+  record: TableRow;
+  handleSave: (record: TableRow) => void;
   children: React.ReactNode;
   placeholder?: string;
 }
@@ -205,56 +205,13 @@ const EditableCell: React.FC<
   return <td {...restProps}>{childNode}</td>;
 };
 
-interface DataType {
-  key: React.Key;
-  initiative: number | null;
-  name: string;
-  healthy_points: number | null;
-  armor_class: number | null;
-}
-
-type ColumnTypes = Exclude<TableProps<DataType>["columns"], undefined>;
+type ColumnTypes = Exclude<TableProps<TableRow>["columns"], undefined>;
 
 const EditableTable: React.FC = () => {
-  const initialValues = [
-    {
-      key: "1",
-      initiative: null,
-      name: "",
-      healthy_points: null,
-      armor_class: null,
-    },
-    {
-      key: "2",
-      initiative: null,
-      name: "",
-      healthy_points: null,
-      armor_class: null,
-    },
-    {
-      key: "3",
-      initiative: null,
-      name: "",
-      healthy_points: null,
-      armor_class: null,
-    },
-    {
-      key: "4",
-      initiative: null,
-      name: "",
-      healthy_points: null,
-      armor_class: null,
-    },
-    {
-      key: "5",
-      initiative: null,
-      name: "",
-      healthy_points: null,
-      armor_class: null,
-    },
-  ];
-  const [dataSource, setDataSource] = useState<DataType[]>(initialValues);
-  const [count, setCount] = useState(6);
+  const INITIAL_ROWS = 5;
+  const initialValues = generateInitialValues(INITIAL_ROWS);
+  const [dataSource, setDataSource] = useState<TableRow[]>(initialValues);
+  const [count, setCount] = useState(INITIAL_ROWS + 1);
   const [selectedRowIndex, setSelectedRowIndex] = useState(0);
   const [roundCount, setRoundCount] = useState(1);
   const [resetAnim, setResetAnim] = useState(false);
@@ -263,9 +220,52 @@ const EditableTable: React.FC = () => {
     setSelectedRowIndex(0);
   }, [dataSource.length]);
 
-  const handleDelete = (key: React.Key) => {
-    const newData = dataSource.filter((item) => item.key !== key);
-    setDataSource(newData);
+  const handleDelete = (key: string) => {
+    setDataSource((prev) => prev.filter((item) => item.key !== key));
+  };
+
+  const handleAdd = () => {
+    const newData: TableRow = {
+      key: count.toString(),
+      initiative: null,
+      name: "",
+      healthy_points: null,
+      armor_class: null,
+    };
+    setCount((c) => c + 1);
+    setDataSource((prev) => [...prev, newData]);
+  };
+
+  const handleSave = (row: TableRow) => {
+    setDataSource((prev) => {
+      const newData = [...prev];
+      const index = newData.findIndex((item) => row.key === item.key);
+      if (index > -1) {
+        newData.splice(index, 1, { ...newData[index], ...row });
+      }
+      return newData;
+    });
+  };
+
+  const handleClear = () => {
+    setDataSource(initialValues);
+    setSelectedRowIndex(0);
+    setRoundCount(1);
+  };
+
+  const handleOrder = () => {
+    setDataSource((prev) =>
+      [...prev].sort(
+        (a, b) => (b.initiative ?? -Infinity) - (a.initiative ?? -Infinity)
+      )
+    );
+  };
+
+  const components = {
+    body: {
+      row: EditableRow,
+      cell: EditableCell,
+    },
   };
 
   const defaultColumns: (ColumnTypes[number] & {
@@ -309,7 +309,7 @@ const EditableTable: React.FC = () => {
     {
       title: <span className="logo-font">Ações</span>,
       dataIndex: "actions",
-      render: (_: unknown, record: DataType, rowIndex: number) =>
+      render: (_: unknown, record: TableRow, rowIndex: number) =>
         dataSource.length >= 1 ? (
           <div className="flex justify-center">
             <Tooltip title="Excluir linha">
@@ -335,56 +335,13 @@ const EditableTable: React.FC = () => {
     },
   ];
 
-  const handleAdd = () => {
-    const newData: DataType = {
-      key: count,
-      initiative: null,
-      name: "",
-      healthy_points: null,
-      armor_class: null,
-    };
-    setCount(count + 1);
-    setDataSource([...dataSource, newData]);
-  };
-
-  const handleSave = (row: DataType) => {
-    const newData = [...dataSource];
-    const index = newData.findIndex((item) => row.key === item.key);
-    const item = newData[index];
-    newData.splice(index, 1, {
-      ...item,
-      ...row,
-    });
-    setDataSource(newData);
-  };
-
-  const handleClear = () => {
-    setDataSource(initialValues);
-    setSelectedRowIndex(0);
-    setRoundCount(1);
-  };
-
-  const handleOrder = () => {
-    const orderedData = [...dataSource].sort(
-      (a, b) => (b.initiative ?? -Infinity) - (a.initiative ?? -Infinity)
-    );
-    setDataSource(orderedData);
-  };
-
-  const components = {
-    body: {
-      row: EditableRow,
-      cell: EditableCell,
-    },
-  };
-
   const columns = defaultColumns.map((col) => {
     if (!col.editable) {
       return col;
     }
     return {
       ...col,
-      onCell: (record: DataType, rowIndex: number) => ({
+      onCell: (record: TableRow, rowIndex: number) => ({
         record,
         editable: col.editable,
         dataIndex: col.dataIndex,
@@ -430,7 +387,7 @@ const EditableTable: React.FC = () => {
             </Button>
           </Tooltip>
         </div>
-        <Table<DataType>
+        <Table<TableRow>
           components={components}
           rowClassName={(_, index) =>
             index === selectedRowIndex
@@ -549,5 +506,14 @@ const EditableTable: React.FC = () => {
     </Form>
   );
 };
+
+const generateInitialValues = (count: number): TableRow[] =>
+  Array.from({ length: count }, (_, i) => ({
+    key: (i + 1).toString(),
+    initiative: null,
+    name: "",
+    healthy_points: null,
+    armor_class: null,
+  }));
 
 export default EditableTable;
