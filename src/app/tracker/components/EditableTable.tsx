@@ -123,6 +123,13 @@ const EditableCell: React.FC<
                   placeholder || (typeof title === "string" ? title : undefined)
                 }
                 controls={false}
+                onKeyDown={(e) => {
+                  if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                  }
+                }}
+                inputMode="numeric"
+                pattern="[0-9]*"
               />
               <Tooltip title="Iniciativa aleatória">
                 <Button
@@ -163,6 +170,13 @@ const EditableCell: React.FC<
                 placeholder || (typeof title === "string" ? title : undefined)
               }
               controls={false}
+              onKeyDown={(e) => {
+                if (!/[0-9]/.test(e.key)) {
+                  e.preventDefault();
+                }
+              }}
+              inputMode="numeric"
+              pattern="[0-9]*"
             />
           )
         ) : (
