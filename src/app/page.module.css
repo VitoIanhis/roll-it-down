@@ -17,6 +17,7 @@
 .logoWrapper {
   margin-bottom: 32px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   animation: fadeInUp 0.7s ease-out;

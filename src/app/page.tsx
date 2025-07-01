@@ -162,6 +162,15 @@ export default function Home() {
               priority
               className={styles.logo}
             />
+            <span
+              className="mt-2 text-center text-xs italic font-medium"
+              style={{
+                textShadow: "0 2px 4px rgba(28, 43, 74, 0.15)",
+                letterSpacing: "0.5px",
+              }}
+            >
+              De jogador para jogador. Feito pra quem vive cada sessão.
+            </span>
           </motion.div>
           <motion.p
             initial={{ opacity: 0, y: 40 }}

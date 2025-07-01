@@ -8,6 +8,7 @@ import {
 
 import { Button, Layout, Menu, theme, Spin } from "antd";
 import Image from "next/image";
+import Link from "next/link";
 import "./page.css";
 import EditableTable from "./components/EditableTable";
 
@@ -34,7 +35,7 @@ const Tracker: React.FC = () => {
     {
       key: "1",
       icon: <LuSwords />,
-      label: <span className="logo-font">Oráculo de Combate</span>,
+      label: <span className="logo-font">Oráculo do Combate</span>,
     },
   ];
 
@@ -78,13 +79,15 @@ const Tracker: React.FC = () => {
         style={{ backgroundColor: "#F5F5DC" }}
       >
         <div className="flex justify-center items-center p-4">
-          <Image
-            src={`/assets/${image}`}
-            width={collapsed ? 50 : 110}
-            height={collapsed ? 30 : 50}
-            alt="Logo"
-            style={{ filter: "drop-shadow(0 2px 4px rgba(28, 43, 74, 0.3))" }}
-          />
+          <Link href="/">
+            <Image
+              src={`/assets/${image}`}
+              width={collapsed ? 50 : 110}
+              height={collapsed ? 30 : 50}
+              alt="Logo"
+              style={{ filter: "drop-shadow(0 2px 4px rgba(28, 43, 74, 0.3))" }}
+            />
+          </Link>
         </div>
         <Menu
           theme="light"
@@ -146,13 +149,17 @@ const Tracker: React.FC = () => {
             />
           </div>
           <div className="flex flex-col items-center mt-6 mb-8">
-            <Image
-              src={`/assets/logo.svg`}
-              width={110}
-              height={70}
-              alt="Logo"
-              style={{ filter: "drop-shadow(0 2px 4px rgba(28, 43, 74, 0.3))" }}
-            />
+            <Link href="/">
+              <Image
+                src={`/assets/logo.svg`}
+                width={110}
+                height={70}
+                alt="Logo"
+                style={{
+                  filter: "drop-shadow(0 2px 4px rgba(28, 43, 74, 0.3))",
+                }}
+              />
+            </Link>
             <span
               className="mt-2 text-center text-xs italic font-medium"
               style={{
