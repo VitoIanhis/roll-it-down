@@ -98,6 +98,45 @@ const tools = [
   },
 ];
 
+const cardBodyStyle: React.CSSProperties = {
+  minHeight: 140,
+  display: "flex",
+  flexDirection: "column" as const,
+  alignItems: "center",
+  justifyContent: "center",
+  padding: 24,
+};
+
+const cardButtonStyle: React.CSSProperties = {
+  display: "flex",
+  margin: "0 auto",
+  alignItems: "center",
+};
+
+const logoTextStyle: React.CSSProperties = {
+  textShadow: "0 2px 4px rgba(28, 43, 74, 0.15)",
+  letterSpacing: "0.5px",
+};
+
+const heroSectionRowStyle: React.CSSProperties = {
+  marginTop: -35,
+  marginBottom: 40,
+};
+const iconWrapperStyle: React.CSSProperties = {
+  margin: "16px 0 8px 0",
+  display: "flex",
+  justifyContent: "center",
+  width: "100%",
+};
+const cardTitleStyle: React.CSSProperties = {
+  textAlign: "center" as const,
+  marginBottom: 0,
+};
+const cardDescStyle: React.CSSProperties = {
+  textAlign: "center" as const,
+  marginBottom: 24,
+};
+
 export default function Home() {
   const [loading, setLoading] = React.useState(true);
 
@@ -164,10 +203,7 @@ export default function Home() {
             />
             <span
               className="mt-2 text-center text-xs italic font-medium"
-              style={{
-                textShadow: "0 2px 4px rgba(28, 43, 74, 0.15)",
-                letterSpacing: "0.5px",
-              }}
+              style={logoTextStyle}
             >
               De jogador para jogador. Feito pra quem vive cada sessão.
             </span>
@@ -201,60 +237,40 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.45 }}
         >
-          <Row justify="center" style={{ marginTop: -35, marginBottom: 40 }}>
+          <Row justify="center" style={heroSectionRowStyle}>
             <Col xs={24} sm={22} md={20} lg={16} xl={12}>
               <div className={styles.carouselWrapper}>
                 <Slider {...settings} className={styles.carousel}>
-                  {tools.map((tool) => (
-                    <div key={tool.key} className={styles.carouselItem}>
+                  {tools.map(({ key, title, icon, description, button }) => (
+                    <div key={key} className={styles.carouselItem}>
                       <Card
                         bordered={false}
                         className={styles.toolCard}
-                        bodyStyle={{
-                          minHeight: 140,
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          padding: 24,
-                        }}
+                        bodyStyle={cardBodyStyle}
                       >
                         <Title
                           level={4}
                           className={styles.cardTitle}
-                          style={{ textAlign: "center", marginBottom: 0 }}
+                          style={cardTitleStyle}
                         >
-                          {tool.title}
+                          {title}
                         </Title>
-                        <div
-                          style={{
-                            margin: "16px 0 8px 0",
-                            display: "flex",
-                            justifyContent: "center",
-                            width: "100%",
-                          }}
-                        >
-                          {tool.icon}
-                        </div>
+                        <div style={iconWrapperStyle}>{icon}</div>
                         <Paragraph
                           className={styles.cardDesc}
-                          style={{ textAlign: "center", marginBottom: 24 }}
+                          style={cardDescStyle}
                         >
-                          {tool.description}
+                          {description}
                         </Paragraph>
                         <Button
                           type="primary"
-                          href={tool.button.href}
-                          disabled={tool.button.disabled}
+                          href={button.href}
+                          disabled={button.disabled}
                           className={styles.cardButton}
                           size="large"
-                          style={{
-                            display: "flex",
-                            margin: "0 auto",
-                            alignItems: "center",
-                          }}
+                          style={cardButtonStyle}
                         >
-                          {tool.button.text}
+                          {button.text}
                         </Button>
                       </Card>
                     </div>
