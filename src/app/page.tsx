@@ -16,7 +16,7 @@ const { Title, Paragraph } = Typography;
 const tools = [
   {
     key: "combat-tracker",
-    title: "Oráculo de Combate",
+    title: "Oráculo do Combate",
     icon: <LuSwords size={48} color="#f5f5dc" style={{ marginBottom: 8 }} />,
     description:
       "Domine batalhas épicas com organização e agilidade. Controle a iniciativa, acompanhe status e mantenha o fluxo do combate como um verdadeiro mestre.",
