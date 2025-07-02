@@ -12,12 +12,12 @@
 }
 @keyframes roundResetPulse {
   0% {
-    box-shadow: 0 0 0 0 #1b5e20;
-    border-color: #1b5e20;
+    box-shadow: 0 0 0 0 #1c2b4a;
+    border-color: #1c2b4a;
   }
   50% {
-    box-shadow: 0 0 10px 4px #1b5e20;
-    border-color: #1b5e20;
+    box-shadow: 0 0 10px 4px #1c2b4a;
+    border-color: #1c2b4a;
   }
   100% {
     box-shadow: 0 0 0 0 #1c2b4a;

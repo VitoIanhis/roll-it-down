@@ -481,14 +481,15 @@ const EditableTable: React.FC = () => {
             style={{
               marginBottom: 10,
               height: 40,
-              width: 135,
+              width: 150,
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "center",
+              gap: 10,
               fontSize: 20,
               backgroundColor: "#1C2B4A",
               color: "#F5F5DC",
-              borderColor: resetAnim ? "#1B5E20" : "#1C2B4A",
+              borderColor: "#1C2B4A",
               transition: "box-shadow 0.3s, border-color 0.3s",
               boxShadow: resetAnim ? "0 0 10px 2px #1C2B4A" : "none",
               borderRadius: 10,
@@ -497,7 +498,7 @@ const EditableTable: React.FC = () => {
             Rodada {roundCount}
             <Tooltip title="Reiniciar rodadas">
               <SyncOutlined
-                spin
+                spin={resetAnim ? true : false}
                 style={{ fontSize: 16 }}
                 onClick={() => {
                   setRoundCount(1);
