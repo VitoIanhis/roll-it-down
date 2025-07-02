@@ -124,7 +124,10 @@ const EditableCell: React.FC<
                 }
                 controls={false}
                 onKeyDown={(e) => {
-                  if (!/[0-9]/.test(e.key)) {
+                  if (
+                    !/[0-9]/.test(e.key) &&
+                    !["Backspace", "Enter"].includes(e.key)
+                  ) {
                     e.preventDefault();
                   }
                 }}
@@ -171,7 +174,10 @@ const EditableCell: React.FC<
               }
               controls={false}
               onKeyDown={(e) => {
-                if (!/[0-9]/.test(e.key)) {
+                if (
+                  !/[0-9]/.test(e.key) &&
+                  !["Backspace", "Delete", "Enter"].includes(e.key)
+                ) {
                   e.preventDefault();
                 }
               }}
