@@ -199,6 +199,7 @@ export default function Home() {
               width={180}
               height={180}
               priority
+              style={{ filter: "drop-shadow(0 2px 4px rgba(28, 43, 74, 0.9))" }}
               className={styles.logo}
             />
             <span

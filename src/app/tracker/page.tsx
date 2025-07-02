@@ -85,7 +85,7 @@ const Tracker: React.FC = () => {
               width={collapsed ? 50 : 110}
               height={collapsed ? 30 : 50}
               alt="Logo"
-              style={{ filter: "drop-shadow(0 2px 4px rgba(28, 43, 74, 0.3))" }}
+              style={{ filter: "drop-shadow(0 2px 4px rgba(28, 43, 74, 0.9))" }}
             />
           </Link>
         </div>
@@ -156,7 +156,7 @@ const Tracker: React.FC = () => {
                 height={70}
                 alt="Logo"
                 style={{
-                  filter: "drop-shadow(0 2px 4px rgba(28, 43, 74, 0.3))",
+                  filter: "drop-shadow(0 2px 4px rgba(28, 43, 74, 0.9))",
                 }}
               />
             </Link>
