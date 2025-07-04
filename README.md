@@ -1,7 +1,7 @@
 # 🎲 Roll It Down
 
 <div align="center">
-  <img src="./public/assets/logo.svg" alt="Roll It Down Logo" width="200" height="200">
+  <img src="./public/assets/logo.svg" alt="Roll It Down Logo" width="200" height="200" href="https://roll-it-down.vercel.app/">
 </div>
 
 > De jogador para jogador. Feito pra quem vive cada sessão.
@@ -13,6 +13,7 @@
 ## 🧙‍♂️ Visão Geral
 
 A aplicação oferece uma **home interativa** com várias ferramentas (algumas em construção) e um **módulo funcional de gerenciamento de combate**, o **Oráculo do Combate**, onde é possível controlar iniciativas, HP, AC e muito mais.
+
 Teste nosso site: [Roll It Down](https://roll-it-down.vercel.app/)
 ---
 
