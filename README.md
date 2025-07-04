@@ -13,7 +13,7 @@
 ## 🧙‍♂️ Visão Geral
 
 A aplicação oferece uma **home interativa** com várias ferramentas (algumas em construção) e um **módulo funcional de gerenciamento de combate**, o **Oráculo do Combate**, onde é possível controlar iniciativas, HP, AC e muito mais.
-Teste nosso site: `https://roll-it-down.vercel.app/`
+Teste nosso site: [Roll It Down](https://roll-it-down.vercel.app/)
 ---
 
 ## 🚀 Funcionalidades
